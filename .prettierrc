@@ -1,0 +1,5 @@
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "plugins": ["@awmottaz/prettier-plugin-void-html"]
+}

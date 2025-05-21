@@ -1,0 +1,30 @@
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+*,
+*:focus,
+*:hover {
+  outline: none;
+}
+
+/* Normalize */
+button:hover {
+  cursor: pointer;
+}
+
+/* Style */
