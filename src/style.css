@@ -28,3 +28,299 @@ button:hover {
 }
 
 /* Style */
+@font-face {
+  font-family: 'Anton';
+  src:
+    url('./fonts/Anton-Regular.woff2') format('woff2'),
+    url('./fonts/Anton-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src:
+    url('./fonts/Montserrat-Thin.woff2') format('woff2'),
+    url('./fonts/Montserrat-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-background: #061f2c;
+  --color-line-soft: #e4eaeb;
+  --color-line-dark: #4b727f;
+  --color-gradient-start: #16475c;
+  --color-gradient-end: #031420;
+  --color-miss: #0b395c;
+  --color-hit: #e3323c;
+  --text-gradient-start: #abb0b0;
+  --text-gradient-end: #182e3c;
+  --header-font-size: 5rem;
+  --header-padding: 20px;
+  --font-base:
+    'Montserrat', Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium',
+    'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+  --ship-curve: 12px;
+}
+
+html {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--color-background);
+  background-image: url('./images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+body {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-line-soft);
+
+  font-family: var(--font-base);
+  font-weight: bold;
+}
+
+header {
+  flex: 0 0 auto;
+  text-align: center;
+  font-size: var(--header-font-size);
+  height: calc(var(--header-font-size) + (var(--header-padding) * 2));
+  padding: var(--header-padding) 0;
+
+  font-family: 'Anton';
+  letter-spacing: 0.4rem;
+
+  background: linear-gradient(
+    to bottom,
+    var(--text-gradient-start),
+    var(--text-gradient-end)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: inherit;
+
+  filter: drop-shadow(0px 0px 2px black);
+}
+
+.boards {
+  flex: 1 0 auto;
+
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-options {
+  min-width: 200px;
+  min-height: 200px;
+  margin: 0px 20px;
+  padding: 0px 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+
+  word-wrap: break-word;
+}
+
+.info-options button {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 12px 8px;
+  font-weight: bold;
+  color: var(--color-line-soft);
+  background: linear-gradient(
+    to bottom,
+    var(--color-gradient-start),
+    var(--color-gradient-end)
+  );
+  border: 1px solid var(--color-gradient-end);
+  border-radius: 10px;
+}
+.info-options button:hover {
+  box-shadow: 4px 4px 4px var(--color-background);
+  background: linear-gradient(
+    to bottom,
+    var(--text-gradient-start),
+    var(--text-gradient-end)
+  );
+}
+
+.board {
+  flex: 1 0 auto;
+  aspect-ratio: 1 / 1;
+  min-width: 240px;
+  max-width: calc(
+    100vh - var(--header-font-size) - (var(--header-padding) * 2)
+  );
+  line-height: 1;
+  max-height: 100%;
+  max-width: 610px;
+
+  /* padding: 120px; */
+  margin: 100px;
+
+  --square-size: 1fr;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(10, var(--square-size));
+  grid-template-rows: repeat(10, var(--square-size));
+  gap: 2px;
+
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+
+  border: 3px solid var(--color-line-dark);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow: 0px 0px 10px black;
+}
+
+.board.self {
+  margin-right: 20px;
+}
+.board.enemy {
+  margin-left: 20px;
+}
+
+.square {
+  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: aquamarine; */
+
+  /* background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); */
+}
+
+.undiscovered {
+  cursor: pointer;
+}
+
+.unclickable > div {
+  cursor: auto;
+}
+
+.ship {
+  background-color: var(--color-line-dark);
+}
+
+.hit {
+  background-image: url('./images/cross.svg');
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.miss {
+  background-image: url('./images/circle.svg');
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.board.enemy:not(.unclickable) > .undiscovered:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--text-gradient-start),
+    var(--text-gradient-end)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: inherit;
+
+  box-shadow: 0px 0px 4px var(--color-line-soft);
+}
+
+.graveyard {
+  --graveyard-width: 2%;
+
+  display: flex;
+  flex-direction: column;
+  width: var(--graveyard-width);
+  min-width: var(--graveyard-width);
+  gap: 8px;
+
+  aspect-ratio: 1 / 12;
+}
+
+.tomb {
+  --tomb-radius: 8px;
+  flex: 1 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tomb[data-length='5'] {
+  flex-basis: 29.41%;
+}
+.tomb[data-length='4'] {
+  flex-basis: 23.53%;
+}
+.tomb[data-length='3'] {
+  flex-basis: 17.65%;
+}
+.tomb[data-length='2'] {
+  flex-basis: 11.76%;
+}
+
+.tomb > * {
+  flex: 1 0 auto;
+  background-color: var(--color-line-dark);
+  box-shadow: 4px 4px 4px var(--color-background);
+}
+.tomb > *:first-child {
+  border-top-left-radius: var(--tomb-radius);
+  border-top-right-radius: var(--tomb-radius);
+}
+.tomb > *:last-child {
+  border-bottom-left-radius: var(--tomb-radius);
+  border-bottom-right-radius: var(--tomb-radius);
+}
+
+.tomb.sunk > * {
+  background-color: var(--color-hit);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.message {
+  align-self: center;
+  font-size: 2rem;
+  text-shadow: 3px 3px 3px var(--color-gradient-end);
+}
+
+.curve-left {
+  border-top-left-radius: var(--ship-curve);
+  border-bottom-left-radius: var(--ship-curve);
+}
+.curve-right {
+  border-top-right-radius: var(--ship-curve);
+  border-bottom-right-radius: var(--ship-curve);
+}
+.curve-top {
+  border-top-left-radius: var(--ship-curve);
+  border-top-right-radius: var(--ship-curve);
+}
+.curve-bottom {
+  border-bottom-left-radius: var(--ship-curve);
+  border-bottom-right-radius: var(--ship-curve);
+}

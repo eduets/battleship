@@ -30,7 +30,7 @@ export default defineConfig([
     }
   },
   {
-    files: ['webpack.*.js'],
+    files: ['{webpack,babel}.*.js'],
     languageOptions: {
       sourceType: 'commonjs',
       globals: globals.node
@@ -56,5 +56,15 @@ export default defineConfig([
     plugins: { markdown },
     language: 'markdown/gfm',
     extends: ['markdown/recommended']
+  },
+  {
+    overrides: [
+      {
+        files: ['tests/**/*'],
+        env: {
+          jest: true
+        }
+      }
+    ]
   }
 ]);
